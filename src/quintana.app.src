@@ -1,0 +1,10 @@
+{application, quintana,
+ [
+  {description, "Wrapper around some Folsom functions"},
+  {vsn, "0.1.0"},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  folsom
+                 ]}
+ ]}.
