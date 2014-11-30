@@ -1,4 +1,4 @@
 quintana
 ========
 
-A simple wrapper to lazy create Folsom metrics.
+A simple wrapper to lazily create Folsom metrics.
