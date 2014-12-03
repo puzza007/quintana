@@ -2,6 +2,8 @@
 
 A simple wrapper to lazily create Folsom metrics.
 
+![quintana](http://i.imgur.com/kyEAS9B.gif)
+
 ### Metrics types
 (source: [boundary/folsom](https://github.com/boundary/folsom#metrics-api))
 
