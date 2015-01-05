@@ -6,6 +6,7 @@
 -export([notify_gauge/2]).
 -export([notify_histogram/1]).
 -export([notify_histogram/2]).
+-export([notify_histogram/4]).
 -export([notify_history/1]).
 -export([notify_history/2]).
 -export([notify_meter/1]).
@@ -33,6 +34,9 @@ notify_histogram(Event) ->
     notify(new_histogram, Event).
 notify_histogram(Name, Value) ->
     notify(new_histogram, Name, Value).
+
+notify_histogram(Name, Value, Type, Attrs) ->
+    notify(new_histogram, {Name, Value, Type, Attrs}).
 
 notify_history(Event) ->
     notify(new_history, Event).
@@ -71,6 +75,14 @@ notify_timed(Timer) ->
 begin_timed(Name) ->
     folsom_metrics:histogram_timed_begin(Name).
 
+notify(Fun, {Name, Value, Type, Attrs}) ->
+    case folsom_metrics:safely_notify(Name, Value) of
+        {error, Name, nonexistent_metric} ->
+            folsom_metrics:Fun(Name, Type, Attrs),
+            folsom_metrics:safely_notify(Name, Value);
+        ok ->
+            ok
+    end;
 notify(Fun, {Name, Value}) ->
     notify(Fun, Name, Value).
 
