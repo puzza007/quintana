@@ -84,7 +84,14 @@ notify(Fun, {Name, Value, Type, Attrs}) ->
             ok
     end;
 notify(Fun, {Name, Value}) ->
-    notify(Fun, Name, Value).
+    notify(Fun, Name, Value);
+notify(Fun, Name) ->
+    case folsom_metrics:safely_notify(Name) of
+        {error, Name, nonexistent_metric} ->
+            folsom_metrics:Fun(Name);
+        ok ->
+            ok
+    end.
 
 notify(Fun, Name, Value) ->
     case folsom_metrics:safely_notify(Name, Value) of
