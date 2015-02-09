@@ -89,7 +89,12 @@ notify(Fun, {Name, Value}) ->
 notify(Fun, Name, Value) ->
     case folsom_metrics:safely_notify(Name, Value) of
         {error, Name, nonexistent_metric} ->
-            folsom_metrics:Fun(Name),
+            case Fun of
+                new_spiral ->
+                    folsom_metrics:Fun(Name, no_exceptions);
+                _ ->
+                    folsom_metrics:Fun(Name)
+            end,
             folsom_metrics:safely_notify(Name, Value);
         ok ->
             ok
