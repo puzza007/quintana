@@ -19,6 +19,7 @@
 -export([notify_spiral/2]).
 -export([notify_timed/1]).
 -export([begin_timed/1]).
+-export([prepare/2]).
 
 notify_counter(Event) ->
     notify(new_counter, Event).
@@ -89,14 +90,16 @@ notify(Fun, {Name, Value}) ->
 notify(Fun, Name, Value) ->
     case folsom_metrics:safely_notify(Name, Value) of
         {error, Name, nonexistent_metric} ->
-            case Fun of
-                new_spiral ->
-                    folsom_metrics:Fun(Name, no_exceptions);
-                _ ->
-                    folsom_metrics:Fun(Name)
-            end,
+            prepare(Fun, Name),
             folsom_metrics:safely_notify(Name, Value);
         ok ->
             ok
     end.
 
+prepare(Fun, Name) ->
+    case Fun of
+        new_spiral ->
+            folsom_metrics:Fun(Name, no_exceptions);
+        _ ->
+            folsom_metrics:Fun(Name)
+    end.
