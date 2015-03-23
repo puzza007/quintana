@@ -1,7 +1,10 @@
 -module(quintana).
 
+-export([begin_timed/1]).
 -export([notify_counter/1]).
 -export([notify_counter/2]).
+-export([notify_duration/1]).
+-export([notify_duration/2]).
 -export([notify_gauge/1]).
 -export([notify_gauge/2]).
 -export([notify_histogram/1]).
@@ -13,13 +16,11 @@
 -export([notify_meter/2]).
 -export([notify_meter_reader/1]).
 -export([notify_meter_reader/2]).
--export([notify_duration/1]).
--export([notify_duration/2]).
 -export([notify_spiral/1]).
 -export([notify_spiral/2]).
 -export([notify_timed/1]).
--export([begin_timed/1]).
 -export([prepare/2]).
+-export([with_timer/2]).
 
 notify_counter(Event) ->
     notify(new_counter, Event).
@@ -72,6 +73,12 @@ notify_timed(Timer) ->
         ok ->
             ok
     end.
+
+with_timer(Name, Fun) ->
+    Metric = begin_timed(Name),
+    Res = Fun(),
+    ok = notify_timed(Metric),
+    Res.
 
 begin_timed(Name) ->
     folsom_metrics:histogram_timed_begin(Name).
