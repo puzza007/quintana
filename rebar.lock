@@ -1,2 +1,8 @@
-[{<<"bear">>,{pkg,<<"bear">>,<<"0.8.3">>},1},
- {<<"folsom">>,{pkg,<<"folsom">>,<<"0.8.3">>},0}].
+{"1.1.0",
+[{<<"bear">>,{pkg,<<"bear">>,<<"0.8.5">>},1},
+ {<<"folsom">>,{pkg,<<"folsom">>,<<"0.8.5">>},0}]}.
+[
+{pkg_hash,[
+ {<<"bear">>, <<"E95FCA1627CD9E15BAF93CE0A52AFF16917BAF325F0EE65B88CD715376CD2344">>},
+ {<<"folsom">>, <<"94A027B56FE84FEED264F9B33CB4C6AC9A801FAD84B87DBDA0836CE83C3B8D69">>}]}
+].
