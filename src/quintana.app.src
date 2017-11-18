@@ -8,5 +8,8 @@
                   kernel,
                   stdlib,
                   folsom
-                 ]}
+                 ]},
+  {maintainers, ["Paul Oliver"]},
+  {licenses, ["MIT"]},
+  {links, [{"Github", "https://github.com/puzza007/quintana"}]}
  ]}.
