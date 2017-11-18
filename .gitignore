@@ -2,3 +2,4 @@
 /ebin/*.app
 /deps/
 _build
+/rebar3.crashdump
